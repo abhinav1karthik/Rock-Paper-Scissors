@@ -14,6 +14,24 @@ function getComputerChoice() {
   return res;
 }
 
+function disableGameButtons() {
+  myrock.disabled = true;
+  mypaper.disabled = true;
+  myscissors.disabled = true;
+  myrock.style.opacity = 0.7;
+  mypaper.style.opacity = 0.7;
+  myscissors.style.opacity = 0.7;
+}
+
+function enableGameButtons() {
+  myrock.disabled = false;
+  mypaper.disabled = false;
+  myscissors.disabled = false;
+  myrock.style.opacity = 1;
+  mypaper.style.opacity = 1;
+  myscissors.style.opacity = 1;
+}
+
 const infodiv = document.querySelector(".info");
 function updateGame(HumanChoice, choice, verdict, gameStatus) {
   const ComputerChoice = getComputerChoice();
@@ -58,12 +76,14 @@ function updateGame(HumanChoice, choice, verdict, gameStatus) {
     seriesStatus.textContent = "You Won the Series!";
     seriesStatus.style.textAlign = "center";
     infodiv.appendChild(seriesStatus);
+    disableGameButtons();
   } else if (ComputerScore == 5) {
     let seriesStatus = document.createElement("div");
     seriesStatus.classList.add("seriesStatus");
     seriesStatus.textContent = "You Lost the Series!";
     seriesStatus.style.textAlign = "center";
     infodiv.appendChild(seriesStatus);
+    disableGameButtons();
   }
 }
 
@@ -99,4 +119,5 @@ myrestart.addEventListener("click", () => {
   if (toRemove) {
     toRemove.remove();
   }
+  enableGameButtons();
 });
