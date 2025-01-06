@@ -1,112 +1,102 @@
+let HumanScore = 0;
+let ComputerScore = 0;
 
-let HumanScore=0;
-let ComputerScore=0;
-
-function getComputerChoice(){
-         let x=Math.floor((Math.random()*100));
-         let res;
-         if(x>=0 && x<=32){
-            res="rock";
-         }
-         else if(x>=33 && x<=65){
-            res="paper";
-         }
-         else{
-            res="scissors";
-         }
-         return res;
+function getComputerChoice() {
+  let x = Math.floor(Math.random() * 100);
+  let res;
+  if (x >= 0 && x <= 32) {
+    res = "rock";
+  } else if (x >= 33 && x <= 65) {
+    res = "paper";
+  } else {
+    res = "scissors";
+  }
+  return res;
 }
 
-function getHumanChoice(){
-         let y=prompt(`Enter your choice: "Rock", "Paper", "Scissors" `);
-         y=y.toLowerCase();
-         return y;
+const infodiv = document.querySelector(".info");
+function updateGame(HumanChoice, choice, verdict, gameStatus) {
+  const ComputerChoice = getComputerChoice();
+  if (ComputerChoice == HumanChoice) {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: Draw!`;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  } else if (HumanChoice == "rock" && ComputerChoice == "paper") {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: You Lose!\n`;
+    ComputerScore++;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  } else if (HumanChoice == "rock" && ComputerChoice == "scissors") {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: You Win!\n`;
+    HumanScore++;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  } else if (HumanChoice == "scissors" && ComputerChoice == "rock") {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: You Lose!\n`;
+    ComputerScore++;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  } else if (HumanChoice == "scissors" && ComputerChoice == "paper") {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: You Win!\n`;
+    HumanScore++;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  } else if (HumanChoice == "paper" && ComputerChoice == "rock") {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: You Win!\n`;
+    HumanScore++;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  } else if (HumanChoice == "paper" && ComputerChoice == "scissors") {
+    choice.textContent = `Your-Choice: ${HumanChoice}, Computer-Choice: ${ComputerChoice}`;
+    verdict.textContent = `Verdict: You Lose!\n`;
+    ComputerScore++;
+    gameStatus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  }
+  if (HumanScore == 5) {
+    let seriesStatus = document.createElement("div");
+    seriesStatus.classList.add("seriesStatus");
+    seriesStatus.textContent = "You Won the Series!";
+    seriesStatus.style.textAlign = "center";
+    infodiv.appendChild(seriesStatus);
+  } else if (ComputerScore == 5) {
+    let seriesStatus = document.createElement("div");
+    seriesStatus.classList.add("seriesStatus");
+    seriesStatus.textContent = "You Lost the Series!";
+    seriesStatus.style.textAlign = "center";
+    infodiv.appendChild(seriesStatus);
+  }
 }
 
-function playRound(ComputerChoice,HumanChoice){
-    if (ComputerChoice == HumanChoice) {
-        let message = "Draw!\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    } else if (HumanChoice == "paper" && ComputerChoice == "rock") {
-        let message = "You Win! This Round\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        HumanScore++;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    } else if (HumanChoice == "paper" && ComputerChoice == "scissors") {
-        let message = "You Lose! This Round\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        ComputerScore++;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    } else if (HumanChoice == "rock" && ComputerChoice == "paper") {
-        let message = "You Lose! This Round\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        ComputerScore++;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    } else if (HumanChoice == "rock" && ComputerChoice == "scissors") {
-        let message = "You Win! This Round\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        HumanScore++;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    } else if (HumanChoice == "scissors" && ComputerChoice == "rock") {
-        let message = "You Lose! This Round\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        ComputerScore++;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    } else if (HumanChoice == "scissors" && ComputerChoice == "paper") {
-        let message = "You Win! This Round\n";
-        message += `Your Choice: ${HumanChoice}\n`;
-        message += `Computer Choice: ${ComputerChoice}\n`;
-        HumanScore++;
-        message += `Your Score: ${HumanScore}\n`;
-        message += `Computer Score: ${ComputerScore}`;
-        alert(message);
-    }    
-}
+const choice = document.querySelector(".choice");
+const verdict = document.querySelector(".verdict");
+const gameStaus = document.querySelector(".gameStatus");
 
-function printVerdict(){
-         let message=`your final Score: ${HumanScore}\n`;
-         message+=`computer final Score: ${ComputerScore}\n`;
-         if(HumanScore>ComputerScore){
-            message+="You WIN the Series!!!\n";
-        }
-        else{
-            message+="You LOSE the Series!!!\n";
-        }
-        alert(message);
-}
+choice.textContent = "Start Game!";
+verdict.textContent = "Start Game to Show Result.";
+gameStaus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
 
-function playSeries(){
-    for(let i=1;i<=5;){
-        let ComputerChoice=getComputerChoice();
-        let HumanChoice=getHumanChoice();
-        if(HumanChoice!="rock" && HumanChoice!="paper" && HumanChoice!="scissors"){
-            alert("Enter any of the three only: 'Rock', 'Paper', 'Scissors' to proceed.");
-         }
-         else{
-          playRound(ComputerChoice,HumanChoice);
-          i++;
-         }
-    }
-}
+const myrock = document.querySelector(".rock");
+const mypaper = document.querySelector(".paper");
+const myscissors = document.querySelector(".scissors");
+const myrestart = document.querySelector(".restart");
 
-playSeries();
-printVerdict();
+myrock.addEventListener("click", () =>
+  updateGame("rock", choice, verdict, gameStaus)
+);
+mypaper.addEventListener("click", () =>
+  updateGame("paper", choice, verdict, gameStaus)
+);
+myscissors.addEventListener("click", () =>
+  updateGame("scissors", choice, verdict, gameStaus)
+);
+myrestart.addEventListener("click", () => {
+  ComputerScore = 0;
+  HumanScore = 0;
+  choice.textContent = "Start Game!";
+  verdict.textContent = "Start Game to Show Result.";
+  gameStaus.textContent = `Current Game Status: Your-Score: ${HumanScore}, Computer-Score: ${ComputerScore}`;
+  const toRemove = document.querySelector(".seriesStatus");
+  if (toRemove) {
+    toRemove.remove();
+  }
+});
